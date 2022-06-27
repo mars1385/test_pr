@@ -1,0 +1,1132 @@
+syntax = "proto3";
+
+
+package main;
+
+service MainService {
+	// auth
+	rpc login (LoginRequest) returns (Response);
+	rpc loginAdmin(LoginAdmin) returns (Response);
+	rpc loginSubAdmin(LoginAdmin) returns (Response);
+	rpc loginProvider(LoginAdmin) returns (Response);
+	rpc register (UserItem) returns (Response);
+	rpc registerAdmin (UserItem) returns (Response);
+	rpc registerSubAdmin (UserItem) returns (Response);
+	rpc registerProvider (UserItem) returns (Response);
+	rpc logout (noParams) returns(Response);
+	rpc optVerified (CodeVerified) returns(Response);
+	rpc resendOtp (SendCode) returns(Response);
+	rpc sendEmail(SendEmailCode) returns(Response);
+	rpc verifyEmail(EmailCodeVerify) returns(Response);
+	rpc refresh(noParams) returns(Response);
+	rpc checkUserStatus(LoginRequest) returns(Response);
+	rpc changeSubAdminPermissions(ChangePermisssionRequest) returns(Response);
+	rpc sendFlag(noParams) returns(Response);
+	// user
+	rpc getUsers (noParams) returns (Response);
+	rpc getUser (SingleUser) returns(Response);
+	rpc getMe (noParams) returns(Response);
+	rpc editUser (EditUser) returns(Response);
+	rpc deleteUser (SingleUser) returns(Response);
+	rpc changePassword(ChangePassword) returns(Response);
+	rpc verifyUser(SingleUser) returns(Response);
+	rpc blockUser(SingleUser) returns(Response);
+	rpc unblockUser(SingleUser) returns(Response);
+	rpc addAvatar(stream UploadFileRequest) returns(Response);
+	rpc addImage(stream UploadFileRequest) returns(Response);
+	rpc addFile(stream UploadFileRequest) returns(Response);
+	rpc addPin(Pin) returns(Response);
+	rpc addIp(Ip) returns(Response);
+	rpc addDevice(Device) returns(Response);
+	rpc addAddress(addressRequest) returns(Response);
+	rpc addContact(contactReq) returns(Response);
+	rpc getContact(noParams) returns(Response);
+	// card
+	rpc createCard(noParams) returns(Response);
+	rpc createCardWithInfo(CardInfo) returns(Response);
+	rpc getUserCardInfo(noParams) returns(Response);
+	rpc getSingleCard(SingleCard) returns(Response);
+	rpc changeCardPassword(CardPassword) returns(Response);
+	rpc getCards(CardParams) returns(Response);
+	rpc getUserCard(SingleCard) returns(Response);
+	rpc getQrCode(GetQrCodeRequest) returns(Response);
+	rpc changeCardLimit(CardTrx) returns(Response);
+	rpc buyWithCard(BuyWithCard) returns(Response);
+	rpc buyWithQr(BuyWithQr) returns(Response);
+	rpc cardRenewal(SingleCard) returns(Response);
+	rpc forgetCardPassword(SingleCard) returns(Response);
+	rpc getInvoices(CardTrxParams) returns(Response);
+	rpc getSingleInvoice(SingleCard) returns(Response);
+	rpc getUserInvoice(invReq) returns(Response);
+	rpc buyWithScanQr(BuyWithScan) returns(Response);
+	rpc isCardValid(validCard) returns(Response);
+	rpc internalWithdraw(interalReq) returns(Response);
+	rpc getQrCodePos(PosQr) returns(Response);
+	rpc addCard(UserCardReq) returns(Response);
+	rpc getCard(noParams) returns(Response);
+
+	// get card balance
+	rpc getCardBalance(noParams) returns(Response);
+	// deposit withdraw
+	rpc depositToCard(CardTrx) returns(Response);
+	rpc withdrawFromCard(CardTrx) returns(Response);
+	rpc getUserCardTransaction(CardTrxParams) returns(Response);
+	rpc getCardTransaction(CardTrxAdminParams) returns(Response);
+	rpc changeWithdrawStatus(CardTrxStatus) returns(Response);
+	// log
+	rpc getAttempts (GetAttemptRequest) returns (Response);
+	rpc getBlockedIp(GetBlockedIpRequest) returns (Response);
+	rpc BlockIp(IpRequest) returns (Response);
+	rpc UnblockIp (IpRequest) returns (Response);
+	rpc getSuspicious (GetAttemptRequest) returns (Response);
+	rpc getLogs (GetAttemptRequest) returns (Response);
+	rpc getChatRooms(GetChtRequest) returns(Response);
+	rpc getChatRoomMessage(ChatReq) returns(Response);
+	rpc acceptChatRoom(ChatReq) returns(Response);
+	rpc deActiveChat(ChatReq) returns(Response);
+	rpc sendMessage(SendMessageReq) returns(Response);
+	rpc userChatRoom(noParams) returns(Response);
+	// notification
+	rpc getUserNotifications (GetNotificationRequest) returns (Response); 
+	rpc getAllNotifications (GetNotificationRequest) returns (Response); 
+	rpc getNotification (GetSingleNotificationRequest) returns (Response);
+	// pos
+	rpc createCompany(CompanyRequest) returns(Response);
+  rpc uploadFile(stream CompanyUploadFileRequest) returns(Response);
+  rpc verifyCompany(VerifyCompanyRequest) returns(Response);
+  rpc createDevice(DeviceRequest) returns(Response);
+  rpc activeDevise(ActiveDeviceRequest) returns(Response);
+  rpc getCompanies(noParams) returns(Response);
+  rpc getDevices(GetDevicesRequest) returns(Response);
+  rpc getDevice(GetDeviceRequest) returns(Response);
+  rpc getBalance(GetBalanceRequest) returns(Response);
+  rpc getTransactions(GetTransactionsRequest) returns(Response);
+  rpc financeVerifyCompany(FinanceVerifyCompanyRequest) returns(Response);
+	rpc loginDevice(LoginDevice) returns(Response);
+	rpc changeDevicePassword(ChangePass) returns(Response);
+	rpc changeDevicePasswordAdmin(ChangePass) returns(Response);
+	rpc getSingleInvoicePos(GetDeviceRequest) returns(Response);
+	rpc getUserInvoicePos(invReqPos) returns(Response);
+	rpc getDeviceInvoce(invReqPos) returns(Response);
+	// transaction
+	// rpc buyRequest(BuyMessage) returns(Response);
+	rpc getAllTransaction(TrxQuery) returns(Response);
+	rpc getSingleTransaction(IdQuery) returns(Response);
+	// rpc getBalanceTrx(BalanceQuery)  returns(Response);
+	rpc createOrUpdateCoin(CoinRequest) returns(Response);
+	rpc getAllCoins(noParams) returns(Response);
+	// rpc removeCoin(IdQuery) returns(Response);
+	rpc getUserWallet(WalletRequest) returns(Response);
+	rpc getUserTransactions(TrxUserQuery) returns(Response);
+	rpc getUserTransaction(IdQuery) returns(Response);
+	rpc getTransactionsTrx(TrxUserQuery) returns(Response);
+	rpc sendTransactions(SendCoin) returns(Response);
+	rpc updateUserSetting(userTrxSettingReq) returns(Response);
+	rpc getUserSetting(noParams) returns(Response);
+	rpc getExchangeTrx(TrxUserQuery) returns(Response);
+	// rpc getBuyFee(FeeRequest) returns(Response);
+	// utils
+	rpc sendPublicKey(noParams) returns(Response);
+	rpc PricesStream(userStream) returns (stream PriceStream);
+	rpc chatStream(userStream) returns (stream ChatStreamRes);
+	rpc notificationStream(userStream) returns(stream NotificationStream);
+	rpc uploadImage(imageUploadReq) returns(Response);
+}
+
+message paymentRes {
+	string id = 1;
+	string customer = 2;
+	string signiture = 3;
+	string event = 4;
+}
+message UserCardReq {
+	string cardNumber = 1;
+	string expireTime = 2;
+	string cvv2 = 3;
+}
+
+message UserDepositData { 
+	string paymentIntent =1;
+	string ephemeralKey=2;
+	string customer=3;
+	string publishableKey= 4;
+	string paymentType=5;
+}
+
+
+message UserCardData {
+	string id =1;
+	string user =2;
+	string cardNumber = 3;
+	string expireTime = 4;
+	bool isDefault = 5;
+	string updatedAt = 6;
+	string createdAt = 7;
+}
+
+message contactData {
+	string phoneNumber = 1;
+	string countryCode = 2;
+}
+message contactReq {
+	repeated contactData contacts = 1;
+}
+
+message NotificationStream {
+	string id = 1;
+	string message = 2;
+	string type = 3;
+	string trxId = 4;
+	string status = 5;
+	string from = 6;
+	string to = 7;
+	string fromAmount = 8;
+	string toAmount = 9;
+	string user = 10;
+}
+
+message imageUploadReq {
+	bytes chunk_data = 1;
+	string id = 2;
+}
+
+message SendMessageReq {
+	string room = 1;
+	string type = 2;
+	string text = 3;
+	string image = 4;
+}
+message ChatMessage  {
+	string id = 1;
+	User user = 2;
+	string room = 3;
+	string type = 4;
+	string text = 5;
+	string image = 6;
+	string createdAt = 7;
+	string updatedAt = 8;
+}
+
+message ChatRoom {
+	string id = 1;
+	User initiateUser = 2;
+	User responser = 3;
+	bool isActive = 4;
+	string createdAt = 5;
+	string updatedAt = 6;
+	repeated ChatMessage messages =7;
+	bool hasMessage = 8;
+}
+
+message ChatStreamRes {
+	ChatMessage messages =1;
+	string roomId = 2;
+	string user = 3;
+	string responser =4;
+}
+message ChatReq {
+	string id = 1;
+}
+
+message GetChtRequest {
+	string page = 1;
+	string user = 2;
+	bool accepted = 3;
+}
+
+message userStream {
+	string userId = 1;
+}
+message priceData {
+	string name = 1;
+	string price = 2;
+}
+
+message PriceStream {
+	repeated priceData prices = 1;
+}
+
+
+message providerTransactionRes {
+	string id = 1;
+	string status = 2;
+	string fromUser = 3;
+	string trxId=4;
+	string cryptoName = 5;
+	string toUser = 6;
+	string senderAmount = 7;
+	string toAddress = 8;
+	string senderAddress = 9;
+	string formAddress = 10;
+	string createdAt = 11;
+	string updatedAt = 12;	
+	string posTrx = 13;
+	string receiverAmount = 14;
+	string exchangeTo = 15;
+}
+
+message userTrxSettingReq {
+	bool sellCoin = 1;
+}
+
+message userTrxSetting {
+	bool sellCoin = 1;
+	string user = 2;
+	string createdAt = 3;
+	string updatedAt = 4;
+	string id = 5;
+}
+
+
+message UserTransaction {
+	string id = 1;
+	string status = 2;
+	User user = 3;
+	string trxId=4;
+	string cryptoName = 5;
+	string fee = 6;
+	string senderAmount = 7;
+	string receiverAmount = 8;
+	string senderAddress = 9;
+	string receiverAddress = 10;
+	string createdAt = 11;
+	string updatedAt = 12;
+
+} 
+
+message Balance {
+	string name = 1;
+	string value =2;
+	string user = 3;
+}
+
+message PosInfo {
+	string id =1;
+	string posId = 3;
+	Address posAddress = 4;
+	Location posLocation = 5;
+	string posIp = 6;
+	string posCurrency = 7;
+}
+message Value {
+	string price=1;
+	string amount=2;
+}
+
+message Coin  {
+	string id = 1;
+	string name = 2;
+	double minTransaction =3;
+	string link = 4;
+}
+
+message UserWallet  {
+	string cryptoName =1;
+	string address = 2;
+}
+
+message Fee  {
+	string cryptoName =1;
+	string fee = 2;
+}
+message FeePer  {
+	string name =1;
+	string percentage = 2;
+}
+
+message BalanceQuery {
+	repeated string ids = 1;
+}
+
+message BuyInfo {
+ string name =1;
+ string value = 2;
+ bool isCrypto =3;
+ string price =4;
+}
+message WalletRequest {
+	string cryptoName = 1;
+}
+
+message FeeRequest {
+	string amount = 1;
+}
+
+message SendCoin {
+	string cryptoName = 1;
+	string address = 2;
+	string amount = 3;
+}
+
+message CoinRequest {
+	string name = 1;
+	double minTransaction =2;
+	string link = 3;
+}
+
+message AddFee {
+	string cryptoName = 1;
+	double value = 2;
+}
+
+message BuyMessage {
+	string type = 1;
+	string posId = 2;
+	string invoiceId = 3;
+	string userId = 4;
+	repeated BuyInfo BuyList = 5;
+	string cardId = 6;
+	repeated AddFee buyFee = 7;
+}
+
+message TrxUserQuery {
+	string page = 1;
+	string status = 2;
+	string user = 3;
+	string id = 4;
+	string trxId=5;
+}
+
+message TrxQuery {
+	string page =1;
+	string invoiceId = 2;
+	string userId = 3;
+	string posId =4 ;
+}
+
+message IdQuery {
+ 	string id = 1;
+}
+
+
+message LoginDevice {
+	string userName = 1;
+	string password =2 ;
+}
+
+
+message invReqPos {
+	string page = 1;
+	string status = 2;
+	string posId = 3;
+}
+
+message ChangePass {
+	string oldPass =1;
+	string password = 2;
+	string id = 3;
+}
+
+message ValueInvoice {
+	string name = 1;
+	string price = 2;
+	string amount = 3;
+}
+
+message ValueItems {
+	string name = 1;
+	string price = 2;
+	string qty = 3;
+}
+
+message FeeInvoice {
+	string name = 1;
+	string amount = 2;
+}
+
+message POSValue {
+	string id = 1;
+	string name = 2;
+	string location = 3;
+}
+
+message POSInfo_2 {
+	string price = 1;
+	string amount = 2;
+}
+
+message POSTRX {
+	string card = 1;
+	string user =2;
+	string status =3;
+	string trxId =4;
+	string cryptoName = 5;
+	string fee = 6;
+	string invoiceId =7;
+	string senderAddress =8;
+	string receiverAddress =9;
+	string currency =10;
+	bool isCryptoTransaction =11;
+	POSValue posInfo = 12;
+	POSInfo_2 value = 13;
+	string createdAt = 14;
+	string updatedAt = 15;
+}
+
+message InvoiceData {
+	Card card = 1;
+	string user = 2;
+	string posId = 3;
+	string status = 4;
+	string primaryCurrency = 5;
+	string feeAmount = 6;
+	string id = 7;
+	repeated POSTRX transactions = 8;
+	string createdAt = 9;
+	string updatedAt = 10;
+}
+
+message ChangePermisssionRequest {
+	string userId = 1;
+	repeated string permissions = 2;
+}
+
+
+message PosQr {
+	string posId = 1;
+	string amount = 2;
+	string currency = 3;
+	Location location = 4;
+}
+
+message interalReq {
+	string user =1;
+	string amount =2;
+}
+
+message validCard {
+	string number =1;
+}
+
+message BuyWithScan {
+	string qrCode = 1;
+	Location userLocation = 2;
+}
+
+message invReq {
+	string page = 1;
+	string type = 2;
+	string status = 3;
+}
+
+
+message GetDeviceRequest {
+    string id = 1;
+}
+
+message PosTransactionRequest {
+    string currency = 1;
+    int32 amount = 2;
+    int32 fee = 3;
+    string status = 4;
+    int32 cryptoPrice = 5;
+    Info info = 6;
+    string invoiceId =  7;
+}
+
+message PosTransaction {
+	string id = 1;
+	string card = 2;
+	User user = 3;
+	string trxId=4;
+	string cryptoName = 5;
+	string fee = 6;
+	string invoiceId = 7;
+	bool isCryptoTransaction=8;
+	string currency =9;
+	PosInfo posInfo = 10;
+	Value value = 11;
+	string status = 12;
+	string createdAt = 13;
+	string updatedAt = 14;
+	string senderAddress = 15;
+	string receiverAddress = 16;
+}
+
+message Info {
+    string wallet = 1;
+    string cardNumber = 2;
+}
+
+message DeviceBalanceRequest {
+    string posId = 1;
+    string posIp = 2;
+    string id = 3;
+}
+
+message FinanceVerifyCompanyRequest {
+    string companyId = 1;
+    bool active = 2;
+}
+
+message GetDevicesRequest {
+    string companyId = 1;
+}
+
+message ActiveDeviceRequest {
+    string posId = 1;
+    Address posAddress = 2;
+    Location posLocation = 3;
+    string posIp = 4;
+    bool active = 5;
+	string companyId = 6;
+}
+
+message PosResponse {
+    string status = 1;
+    bool success = 2;
+    string message = 3;
+    Data data = 4;
+    repeated Error errors = 5;
+    string pk = 6;
+}
+
+message FileRequest {
+    repeated Files files = 1;
+    string companyId = 2;
+}
+
+
+message DeviceRequest {
+    string posCurrency = 1;
+    Address posAddress = 2;
+    Location posLocation = 3;
+    string companyId = 4;
+}
+
+message CompanyRequest {
+    string companyName = 1;
+    string tel = 2;
+    string email = 3;
+    string faxNumber = 4;
+    string officeNumber = 5;
+    string description = 6;
+    Address address = 7;
+    Location location = 8;
+    repeated Files files = 9;
+    string countryCode = 10;
+}
+
+message DevicePos {
+	string companyId = 1;
+	string userId = 2;
+	string posId = 3;
+	Address posAddress = 4;
+	Location posLocation = 5;
+	string posIp = 6;
+	string posCurrency = 7;
+	bool active = 8;
+	string createdAt = 9;
+	string updatedAt = 10;
+	string id = 11;
+}
+
+
+message Company {
+    string id = 1;
+    string companyName = 2;
+    string userId = 3;
+    string tel = 4;
+    string email = 5;
+    string faxNumber = 6;
+    string description = 7;
+    bool active = 8;
+    Address address = 9;
+    Location location = 10;
+    repeated Files files = 11;
+    string createdAt = 12;
+    string updatedAt = 13;
+}
+
+message VerifyCompanyRequest {
+    string companyId = 1;
+}
+
+message Files {
+    string file = 1;
+    string type = 2;
+}
+
+message GetBalanceRequest {
+    string balanceType = 1;
+    bool daily = 2;
+    string monthly = 3;
+    string id = 4;
+}
+
+message GetTransactionsRequest {
+    string transactionType = 1;
+    bool daily = 2;
+    string monthly = 3;
+    string id = 4;
+}
+
+
+message BuyWithCard {
+	string number = 1;
+	string amount = 2;
+	string currency = 3;
+	string password = 4;
+	string posId = 5;
+	Location posLocation = 6;
+	string posIp = 7;
+}
+
+
+message BuyWithQr {
+	string qrCode = 1;
+	string posId = 2;
+	string amount = 3;
+	string currency = 4;
+	Location posLocation = 5;
+	string posIp = 6;
+}
+
+message CardTrxStatus {
+	string id = 1;
+	bool isVerify = 2;
+}
+
+message CardTrx {
+	string id = 1;
+	string amount = 2;
+	string currency = 3;
+}
+
+message CardTrxParams {
+	string page = 1;
+	string type = 2;
+	string status = 3;
+	string id = 4;
+	string user = 5;
+}
+
+message CardTrxAdminParams {
+	string page = 1;
+	string type = 2;
+	string status = 3;
+	string card = 4;
+}
+
+message CardInfo {
+	string cardNumber = 1;
+	string expire = 2;
+}
+
+message SingleCard {
+	string id = 1;
+}
+
+message GetQrCodeRequest {
+	string cardId = 1;
+	string amount = 2;
+	string currency = 3;
+	Location location = 4;
+}
+
+
+message CardParams {
+	string page = 1;
+	string user = 2;
+}
+
+
+message CardPassword {
+	string oldPassword = 1;
+	string password = 2;
+	string cardId = 3;
+}
+
+message CardLimit {
+	string name = 1;
+	int32 value = 2;
+}
+
+message Card {
+	
+	string user = 1;
+	bool isFromAnotherCard=2;
+	string cardNumber = 3;
+	string ownerName = 4;
+	string expireTime = 5;
+	string updatedAt= 6;
+	string createdAt = 7;
+	repeated CardLimit limits = 8;
+	string id = 9;
+	DefaultCurrency defaultCurrency = 10;
+	string cardCurrency = 11;
+	bool isDefault = 12;
+}
+
+message DefaultCurrency {
+	string name = 1;
+	bool isCrypto = 2;
+}
+
+message CardUser {
+	string fullName = 1;
+  	string email = 2;
+	string phoneNumber = 4;
+	string countryCode = 5;	
+	string id = 6;
+	string avatar = 7;
+}
+
+message CardResponse {
+	string status = 1;
+	bool success = 2;
+	string message = 3;	
+	Data data = 4;
+	repeated Error errors = 5;
+	string pk = 6;
+}
+
+
+message GetNotificationRequest {
+	string page = 1;
+	bool isTrx = 2;
+}
+
+message GetAllNotificationRequest {
+	string page = 1;
+	string user = 2;
+	bool isTrx = 3;
+}
+
+message GetSingleNotificationRequest {
+	string id = 1;
+}
+
+message GetAttemptRequest {
+	string page = 1;
+	string user = 2;
+}
+
+message GetBlockedIpRequest {
+	string page = 1;
+}
+
+message IpRequest {
+	string ip = 1;
+	string reason = 2;
+}
+
+message Ip {
+	bool ip = 1;
+}
+
+message Device {
+	bool device = 1;
+}
+
+message Pin {
+	string pin = 1;
+}
+
+message CompanyUploadFileRequest {
+	oneof data {
+		FileInfo info = 1;
+		bytes chunk_data = 2;
+	}
+	string companyId = 3;
+}
+
+message UploadFileRequest {
+	oneof data {
+		FileInfo info = 1;
+		bytes chunk_data = 2;
+	}
+}
+
+message FileInfo{
+	string name = 1;
+	int32 size = 2;
+	string type = 3;
+
+}
+
+message SingleUser {
+	string id = 1;
+}
+
+message EditUser {
+	string fullName = 1;
+  string email = 2;
+}
+
+
+message ChangePassword {
+	string oldPassword = 1;
+  string password = 2;
+}
+
+message User {
+	string fullName = 1;
+  	string email = 2;
+	string password = 3;
+	string phoneNumber = 4;
+	string countryCode = 5;
+	string id = 6;
+	string avatar = 7;
+	string role = 8;
+	string ip = 9;
+	string device = 10;
+	bool isVerified = 11;
+	string address = 12;
+	string location = 13;
+	string createdAt = 14;
+	string updatedAt = 15;
+	string level = 16;
+}
+
+message LoginRequest {
+	string phoneNumber = 1;
+	string countryCode = 2;
+	string fcmToken=3;
+}
+
+message LoginAdmin {
+	string email = 1;
+	string password = 2;
+	string fcmToken=3;
+}
+
+
+message noParams {}
+
+message UserItem {
+	string fullName = 1;
+  	string email = 2;
+	string password = 3;
+	string phoneNumber = 4;
+	string countryCode = 5;
+	repeated string permissions = 6;
+	string fcmToken=7;
+}
+
+message CodeVerified {
+	string phoneNumber = 1;
+	string code = 2;
+}
+
+message SendCode {
+	string phoneNumber = 1;
+	string countryCode = 2;
+}
+
+message EmailCodeVerify {
+	string email = 1;
+	string code = 2;
+}
+
+message SendEmailCode {
+	string email = 1;
+	string tx = 2;
+	bool verification = 3;
+}
+
+
+message Response {
+	string status = 1;
+	bool success = 2;
+	string message = 3;
+	Data data = 4;
+	repeated Error errors = 5;
+	string pk = 6;
+}
+
+message Error {
+	string message = 1;
+	string field = 2;
+}
+
+
+message Data {
+	string code = 1;
+	LoginData accessData = 2;
+	bool userExist = 3;
+	User user = 4;
+	Card card = 5;
+	string flag = 6;
+	ListData list = 7;
+	Notification notification = 8;
+	string qr = 9;
+	Transaction transaction = 10;
+  DevicePos device = 11;    
+  Company company = 12;
+	InvoiceData invoice = 13;
+	string validCard = 14;
+	PosTransaction posTransaction = 15;
+	UserWallet wallet = 16;
+	UserTransaction userTransaction = 17;
+	string min = 18;
+	string token= 19;
+	userTrxSetting setting = 20;
+	ChatRoom chatRoom =21;
+	string url = 22;
+	UserDepositData userDepositData =23;
+}
+
+message UserContact {
+	string id = 1;
+	string phoneNumber =2;
+	string countryCode = 3;
+	string user = 4;
+	string contactId = 5;
+	bool hasAccount = 6;
+}
+
+
+message BalanceData {
+	string name = 1;
+	double value = 2;
+}
+
+// total pos balance
+message TotalBalance {
+    map<string, int32> balances = 1;
+}
+
+message LoginData  {
+	string accessToken =1;
+	string refreshToken =2;
+}
+
+message ListData  {
+	repeated User users = 1;
+	repeated Card cards = 2;
+	repeated Log logs = 3;
+	repeated Suspicious suspicous = 4;
+	repeated Attempt attempts = 5;
+	repeated BlockedIp ips = 6;
+	repeated Notification notifications = 7;
+	string total = 8;
+	Pagination pagination = 9;
+	repeated Transaction transactionList = 10;
+	repeated InvoiceData invoices = 11;
+	repeated BalanceData userBalance = 12;
+	repeated DevicePos devices = 13;
+	repeated Company companies = 14;
+	repeated PosTransaction posTransactions = 15;
+	repeated Balance balance = 16;
+	repeated Coin coins = 17;
+	repeated UserTransaction userTransactions = 18;
+	repeated FeePer fees = 19;
+	repeated Fee cryptoFee = 20;
+	repeated providerTransactionRes providerTransaction = 21;
+	repeated ChatRoom chatRooms =22;
+	repeated UserContact userContacts = 23;
+	repeated UserCardData userCardsData = 24;
+
+}
+
+message Transaction {
+	string card = 1;
+	string user = 2;
+	string type = 3;
+	string status = 4;
+	repeated TransactionValues values = 5;
+	string id = 6;
+	User from = 7;
+}
+
+message TransactionValues {
+	string name = 1;
+	string priceToUsd = 2;
+	string amount = 3;
+}
+
+message Log {
+	User user = 1;
+	string device = 2;
+	string ip = 3;
+	string page = 4;
+	string body = 5;
+	string updatedAt = 6;
+}
+
+message Suspicious {
+	User user = 1;
+	string device = 8;
+	string ip = 3;
+	string route = 4;
+	string description = 5;
+	string blockTime = 6;
+	string updatedAt = 7;
+}
+
+
+
+message Attempt {
+	User user = 1;
+	string device = 7;
+	string ip = 3;
+	string route = 4;
+	string description = 5;
+	string updatedAt = 6;
+}
+
+message BlockedIp {
+	string ip = 1;
+	string reason = 2;
+	string updatedAt = 3;
+}
+
+
+message TRXDATA {
+	string trxId = 1;
+  string status = 2;
+	string from = 3;
+	string to = 4;	
+	string fromAmount = 5;
+	string toAmount = 6;
+}
+
+message Notification {
+	User user = 1;
+	string type = 2;
+	string message =3;
+	string fcm = 4;
+	string email = 5;
+	string sms = 6;
+	TRXDATA trxData = 7;
+	bool isRead= 8;
+	string createdAt = 9;
+	string updatedAt = 10;
+}
+
+message Pagination {
+	Pdata prev = 2;
+	Pdata next = 1;
+}
+
+
+message Pdata {
+	int32 page = 1;
+	int32 limit = 2;
+}
+
+
+message addressRequest {
+	Address address = 1;
+	Location location = 2;
+}
+
+message Location {
+	string type = 1;
+	Coordinates coordinates = 2;
+}
+
+message Coordinates {
+	 int32 lat = 1;
+	 int32 long = 2;
+
+}
+
+message Address {
+	string country = 1;
+	string state = 2;
+	string city = 3;
+	string zipCode = 4;
+	string fullAddress = 5;
+}
